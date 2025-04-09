@@ -77,7 +77,7 @@ dnf install python3-pip -y
 pip3 install flask
 dnf install git -y
 cd /home/ec2-user
-FOLDER="https://raw.githubusercontent.com/paul-clarusway/roman-number-conventor/refs/heads/main"
+FOLDER="https://raw.githubusercontent.com/emrebiyik/roman-numerals-converter/refs/heads/master"
 wget -P templates ${FOLDER}/templates/index.html
 wget -P templates ${FOLDER}/templates/convert.html
 wget ${FOLDER}/roman-numerals-converter-app.py
@@ -88,7 +88,7 @@ python3 roman-numerals-converter-app.py
 - Now we can run the instance with CLI command. (Do not forget to create userdata.sh under "/home/ec2-user/" folder before run this command)
 
 ```bash
-aws ec2 run-instances --image-id $LATEST_AMI --count 1 --instance-type t2.micro --key-name paulosx --security-groups roman_numbers_sec_grp --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]' --user-data file:///Users/ODG/Desktop/git_dir/paul-cw/porfolio_lesson_plan/week_6/CLI_solution/userdata.sh
+aws ec2 run-instances --image-id $LATEST_AMI --count 1 --instance-type t2.micro --key-name awskey --security-groups roman_numbers_sec_grp --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]' --user-data file:///Users/ODG/Desktop/git_dir/emre-cw/porfolio_lesson_plan/week_6/CLI_solution/userdata.sh
 
 or
 
@@ -96,22 +96,21 @@ aws ec2 run-instances \
     --image-id resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64 \
     --count 1 \
     --instance-type t2.micro \
-    --key-name paulosx \
+    --key-name awskey \
     --security-groups roman_numbers_sec_grp \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=paul_roman_numbers}]'\
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=emre_roman_numbers}]'\
     --user-data file:///home/ec2-user/userdata.sh
 ```
 
 - To see the each instances Ip we'll use describe instance CLI command
 ```bash
-aws ec2 describe-instances --filters "Name=tag:Name,Values=paul_roman_numbers"
+aws ec2 describe-instances --filters "Name=tag:Name,Values=emre_roman_numbers"
 ```
 
 - You can run the query to find Public IP and instance_id of instances:
 ```bash
-aws ec2 describe-instances --filters "Name=tag:Name,Values=paul_roman_numbers" --query 'Reservations[].Instances[].PublicIpAddress[]' --output text
+aws ec2 describe-instances --filters "Name=tag:Name,Values=emre_roman_numbers" --query 'Reservations[].Instances[].PublicIpAddress[]' --output text
 
-aws ec2 describe-instances --filters "Name=tag:Name,Values=paul_roman_numbers" --query 'Reservations[].Instances[].InstanceId[]' --output text
 
 or
 
